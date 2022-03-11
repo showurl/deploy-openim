@@ -25,7 +25,7 @@ func main() {
 	}
 	for dir := range paths {
 		//execCommand("docker", "rmi",  "$(docker images -a | awk '/<none>/{print $3}')")
-		go func(dir string) {
+		/*go */func(dir string) {
 			fmt.Printf("\n----------------------------------------%s构建开始----------------------------------------\n", dir)
 			execCommand("bash", "-c", fmt.Sprintf(""+
 				"cd %s"+
