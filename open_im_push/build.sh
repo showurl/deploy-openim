@@ -40,4 +40,5 @@ elif [[ `uname` == 'Linux' ]]; then
   sed -i "s#NODE_PORT_SDK_SERVER#${NODE_PORT_SDK_SERVER}#g" development.yaml
   sed -i "s#NODE_PORT_DEMO#${NODE_PORT_DEMO}#g" development.yaml
 fi
-echo "推送镜像完成" && kubectl -n ${K8S_NAMESPACE} delete -f development.yaml && kubectl -n ${K8S_NAMESPACE} apply -f development.yaml
+echo "推送镜像完成" && kubectl -n ${K8S_NAMESPACE} delete -f development.yaml
+kubectl -n ${K8S_NAMESPACE} apply -f development.yaml
