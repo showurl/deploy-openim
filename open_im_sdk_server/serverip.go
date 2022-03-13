@@ -1,6 +1,6 @@
 package utils
 
 const (
-	ApiServerIP = "api"
-	WsServerIP  = "msg-gateway"
+	ApiServerIP = "api.openim-pi"
+	WsServerIP  = "msg-gateway.openim-pi"
 )

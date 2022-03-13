@@ -12,7 +12,8 @@ binary_root="/Open-IM-Server/bin"
 rm -rf /Open-IM-Server/config
 mkdir /Open-IM-Server/config
 cp /Open-IM-Server/config.tmp.yaml /Open-IM-Server/config/config.yaml
-sed -i "s#openim-all#$POD_NAME.$K8sServiceName.$NAMESPACE.svc.cluster.local#g" /Open-IM-Server/config/config.yaml
+sed -i "s#openim-all#api#g" /Open-IM-Server/config/config.yaml
+#sed -i "s#openim-all#$POD_NAME.$K8sServiceName.$NAMESPACE.svc.cluster.local#g" /Open-IM-Server/config/config.yaml
 
 switch=$(cat $config_path | grep demoswitch |awk -F '[:]' '{print $NF}')
 if [ ${switch} != "true" ]; then
