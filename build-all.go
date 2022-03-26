@@ -11,6 +11,11 @@ import (
 	"strings"
 )
 
+const (
+	VERSION_TAG_SERVER = "2.0.5"
+	VERSION_TAG_CORE = "2.0.4"
+)
+
 // docker rm -f registry-srv  && rm -rf /root/docker/dockerRegistry && mkdir -p dockerRegistry && docker run -d -p 80:5000 --restart=always --name registry-srv -v /root/docker/dockerRegistry:/var/lib/registry registry
 func main() {
 	var paths = map[string]string{}
@@ -23,12 +28,23 @@ func main() {
 			}
 		}
 	}
+	execCommand("bash", "-c", `rm -rf Open-IM*.tar.gz && \
+wget https://github.91chi.fun//https://github.com//OpenIMSDK/Open-IM-Server/archive/refs/tags/v` + VERSION_TAG_SERVER + `.tar.gz && \
+mv v` + VERSION_TAG_SERVER + `.tar.gz Open-IM-Server.tar.gz && \
+wget https://github.91chi.fun//https://github.com//OpenIMSDK/Open-IM-SDK-Core/archive/refs/tags/v` + VERSION_TAG_CORE + `.tar.gz && \
+mv v` + VERSION_TAG_CORE + `.tar.gz Open-IM-SDK-Core.tar.gz`)
 	for dir := range paths {
 		//execCommand("docker", "rmi",  "$(docker images -a | awk '/<none>/{print $3}')")
 		/*go */func(dir string) {
 			fmt.Printf("\n----------------------------------------%s构建开始----------------------------------------\n", dir)
 			execCommand("bash", "-c", fmt.Sprintf(""+
 				"cd %s"+
+				" && " +
+				//" echo '开始' " +
+				" rm -rf *.tar.gz " +
+				" &&" +
+				" cp ../Open-IM-SDK-Core.tar.gz . &&" +
+				" cp ../Open-IM-Server.tar.gz . " +
 				" && "+
 				"bash build.sh", dir))
 			fmt.Printf("\n----------------------------------------%s构建完成----------------------------------------\n", dir)
@@ -66,7 +82,8 @@ func execCommand(commandName string, params ...string) bool {
 		fmt.Println(err)
 		return false
 	}
-
+	getwd, _ := os.Getwd()
+	cmd.Dir = getwd
 	cmd.Start()
 	in := bufio.NewScanner(stdout)
 	for in.Scan() {

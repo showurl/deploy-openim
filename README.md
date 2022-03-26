@@ -1,5 +1,7 @@
 # openim开源项目k8s集群部署
-    暂且只支持v2.0.2版本
+    当前server版本2.0.5
+    当前core版本2.0.4
+    历史版本请查看 git tag
 ## 需要的环境
     MacOS OR Linux
 ## 需要安装的软件

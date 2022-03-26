@@ -1,0 +1,21 @@
+package main
+
+import (
+	"Open_IM/internal/rpc/group"
+	"flag"
+	"net/http"
+	_ "net/http/pprof"
+)
+
+func main()  {
+	go func() {
+		_main()
+	}()
+	_ = http.ListenAndServe("0.0.0.0:6060", nil)
+}
+func _main() {
+	rpcPort := flag.Int("port", 10500, "get RpcGroupPort from cmd,default 16000 as port")
+	flag.Parse()
+	rpcServer := group.NewGroupServer(*rpcPort)
+	rpcServer.Run()
+}
