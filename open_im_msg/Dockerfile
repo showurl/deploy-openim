@@ -3,8 +3,6 @@ FROM golang as build
 # go mod Installation source, container environment variable addition will override the default variable value
 ENV GO111MODULE=on
 ENV GOPROXY=https://goproxy.cn,direct
-ENV VERSION_TAG_SERVER="2.0.5"
-ENV VERSION_TAG_CORE="2.0.4"
 
 # Set up the working directory
 #WORKDIR /Open-IM-Server
@@ -12,15 +10,10 @@ ENV VERSION_TAG_CORE="2.0.4"
 #COPY . .
 
 COPY Open-IM-Server.tar.gz /
-COPY Open-IM-SDK-Core.tar.gz /
+
 
 WORKDIR /
 RUN tar -zxvf Open-IM-Server.tar.gz && \
-    mv Open-IM-Server-$VERSION_TAG_SERVER Open-IM-Server && \
-    rm -rf Open-IM-Server.tar.gz && \
-    tar -zxvf Open-IM-SDK-Core.tar.gz && \
-    rm -rf Open-IM-Server/cmd/Open-IM-SDK-Core/ && \
-    mv Open-IM-SDK-Core-$VERSION_TAG_CORE Open-IM-Server/cmd/Open-IM-SDK-Core && \
     rm -rf Open-IM-Server.tar.gz
 
 COPY build-open_im_msg.sh /Open-IM-Server/script

@@ -1,18 +1,10 @@
 #!/bin/bash
 source ../setting.env
-VERSION_TAG_SERVER="2.0.5"
-VERSION_TAG_CORE="2.0.4"
+VERSION_TAG_SERVER="2.0.6"
 IMAGE_TAG="${DOCKER_REGISTRY_ADDR}open_im_friend:v$VERSION_TAG_SERVER"
 
-if [ ! -f "./Open-IM-SDK-Core.tar.gz" ];then
 
-rm -rf Open-IM-Server.tar.gz && \
-wget https://github.91chi.fun//https://github.com//OpenIMSDK/Open-IM-Server/archive/refs/tags/v$VERSION_TAG_SERVER.tar.gz && \
-mv v$VERSION_TAG_SERVER.tar.gz Open-IM-Server.tar.gz && \
-wget https://github.91chi.fun//https://github.com//OpenIMSDK/Open-IM-SDK-Core/archive/refs/tags/v$VERSION_TAG_CORE.tar.gz && \
-mv v$VERSION_TAG_CORE.tar.gz Open-IM-SDK-Core.tar.gz
-
-fi
+bash ../download.sh
 echo  "下载完成" && \
 docker build . -t $IMAGE_TAG --no-cache && \
 echo "构建完成" && \
