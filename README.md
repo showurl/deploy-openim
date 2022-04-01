@@ -35,4 +35,34 @@ go run .
 ```
 
 ## Ingress 负载均衡
-    ...
+    这里只说一下msg_gateway和sdk_server的Ingress配置
+    nginx-ingress-controller支持websocket
+```yaml
+#增加ingress注解
+nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+```
+### yaml示例
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+  name: sdk-server.xxx.com
+spec:
+  rules:
+  - host: sdk-server.xxx.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: sdk-server
+            port:
+              number: 30000
+        path: /
+        pathType: Prefix
+```
