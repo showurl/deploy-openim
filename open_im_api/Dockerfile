@@ -14,13 +14,13 @@ COPY Open-IM-Server.tar.gz /
 
 WORKDIR /
 RUN tar -zxvf Open-IM-Server.tar.gz && \
-    rm -rf Open-IM-Server.tar.gz && \
-    rm -rf /Open-IM-Server/internal/api/third/ali_oss_credential.go && \
-    rm -rf /Open-IM-Server/pkg/base_info/oss_api_struct.go
+    rm -rf Open-IM-Server.tar.gz
+#RUN rm -rf /Open-IM-Server/internal/api/third/ali_oss_credential.go && \
+#    rm -rf /Open-IM-Server/pkg/base_info/oss_api_struct.go
 
 COPY build-open_im_api.sh /Open-IM-Server/script
-COPY ali_oss_credential.go.txt /Open-IM-Server/internal/api/third/ali_oss_credential.go
-COPY oss_api_struct.go.txt /Open-IM-Server/pkg/base_info/oss_api_struct.go
+#COPY ali_oss_credential.go.txt /Open-IM-Server/internal/api/third/ali_oss_credential.go
+#COPY oss_api_struct.go.txt /Open-IM-Server/pkg/base_info/oss_api_struct.go
 
 WORKDIR /Open-IM-Server/script
 RUN chmod +x *.sh && \
