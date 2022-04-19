@@ -172,7 +172,7 @@ func (ws *WServer) addUserConn(uid string, platformID int32, conn *UserConn, tok
 		log.Debug(operationID, "user not first come in, add conn ", uid, platformID, conn, oldConnMap)
 	} else {
 		i := make(map[string]*UserConn)
-		i[constant.PlatformIDToName(platformID, constant.WithMultiLoginPolicy(config.Config.MultiLoginPolicy))] = conn
+		i[constant.PlatformIDToName(platformID, constant.WithMultiLoginPolicy(3))] = conn
 		ws.wsUserToConn[uid] = i
 		log.Debug(operationID, "user first come in, new user, conn", uid, platformID, conn, ws.wsUserToConn[uid])
 	}
