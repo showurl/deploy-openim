@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: msg-gateway-test
+  name: msg-gateway
 
 spec:
   podManagementPolicy: OrderedReady
@@ -10,14 +10,14 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: msg-gateway-test
-      workload.user.cattle.io/workloadselector: statefulSet-openim-msg-gateway-test
-  serviceName: msg-gateway-test
+      app: msg-gateway
+      workload.user.cattle.io/workloadselector: statefulSet-openim-msg-gateway
+  serviceName: msg-gateway
   template:
     metadata:
       labels:
-        app: msg-gateway-test
-        workload.user.cattle.io/workloadselector: statefulSet-openim-msg-gateway-test
+        app: msg-gateway
+        workload.user.cattle.io/workloadselector: statefulSet-openim-msg-gateway
     spec:
       containers:
         - image: "IMAGE_TAG"
@@ -54,7 +54,7 @@ spec:
             protocol: TCP
             containerPort: 17778
           imagePullPolicy: Always
-          name: msg-gateway-test
+          name: msg-gateway
           stdin: true
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -84,7 +84,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: msg-gateway-test
+  name: msg-gateway
 
 spec:
   ports:
@@ -97,14 +97,14 @@ spec:
       protocol: TCP
       targetPort: 17778
   selector:
-    app: msg-gateway-test
+    app: msg-gateway
   type: ClusterIP
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: msg-gateway-test-remote
+  name: msg-gateway-remote
 
 spec:
   externalTrafficPolicy: Cluster
@@ -115,5 +115,5 @@ spec:
       protocol: TCP
       targetPort: 17778
   selector:
-    app: msg-gateway-test
+    app: msg-gateway
   type: NodePort
