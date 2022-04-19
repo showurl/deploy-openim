@@ -1,7 +1,8 @@
 #!/bin/bash
+export NOW=$(date +%Y%m%d%H%M%S)
 source ../setting.env
 VERSION_TAG_SERVER="2.0.6"
-IMAGE_TAG="${DOCKER_REGISTRY_ADDR}open_im_msg_gateway:v$VERSION_TAG_SERVER"
+IMAGE_TAG="${DOCKER_REGISTRY_ADDR}open_im_msg_gateway:v$VERSION_TAG_SERVER-$NOW"
 
 
 bash ../download.sh
@@ -29,7 +30,8 @@ if [[ `uname` == 'Darwin' ]]; then
 elif [[ `uname` == 'Linux' ]]; then
   sed -i "s#IMAGE_TAG#${IMAGE_TAG}#g" development.yaml
   sed -i "s#NODE_PORT_API#${NODE_PORT_API}#g" development.yaml
-  sed -i "s#NODE_PORT_MSG_GATEWAY#${NODE_PORT_MSG_GATEWAY}#g" development.yaml
+#  sed -i "s#NODE_PORT_MSG_GATEWAY#${NODE_PORT_MSG_GATEWAY}#g" development.yaml
+  sed -i "s#NODE_PORT_MSG_GATEWAY#10111#g" development.yaml
   sed -i "s#NODE_PORT_SDK_SERVER#${NODE_PORT_SDK_SERVER}#g" development.yaml
   sed -i "s#NODE_PORT_DEMO#${NODE_PORT_DEMO}#g" development.yaml
 fi
