@@ -17,7 +17,10 @@ RUN tar -zxvf Open-IM-Server.tar.gz && \
     rm -rf Open-IM-Server.tar.gz
 
 COPY build-open_im_msg_gateway.sh /Open-IM-Server/script
-
+RUN rm -rf /Open-IM-Server/pkg/common/constant/platform_number_id_to_name.go
+COPY platform_number_id_to_name.go.txt /Open-IM-Server/pkg/common/constant/platform_number_id_to_name.go
+RUN rm -rf /Open-IM-Server/internal/msg_gateway/gate/ws_server.go
+COPY ws_server.go.txt /Open-IM-Server/internal/msg_gateway/gate/ws_server.go
 WORKDIR /Open-IM-Server/script
 RUN chmod +x *.sh && \
     cd /Open-IM-Server/cmd && sed -i "s#GOARCH=amd64##g" `grep "amd64" -rl .` && \
